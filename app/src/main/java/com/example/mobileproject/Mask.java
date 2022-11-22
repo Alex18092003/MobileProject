@@ -9,7 +9,7 @@ public class Mask implements Parcelable {
     private  String Fact;
     private  String Images;
 
-    protected  Mask(Parcel in)
+    public   Mask(Parcel in)
     {
         Kod_fact = in.readInt();
         Fact = in.readString();

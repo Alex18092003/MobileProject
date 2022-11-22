@@ -54,6 +54,8 @@ public class AdapterMask extends BaseAdapter {
     {
         return maskList.get(i).getID();
     }
+
+
     public static Bitmap loadContactPhoto(ContentResolver cr, long id, Context context) {
         Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, id);
         InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(cr, uri);
