@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,9 +45,9 @@ public class ConclusionFact extends AppCompatActivity {
     }
 
     public void GetTableSQL(View view) {
+        data = new ArrayList<Mask>();
+        pAdapter = new AdapterMask(ConclusionFact.this, data);
         try {
-            data = new ArrayList<Mask>();
-            pAdapter = new AdapterMask(ConclusionFact.this, data);
            ConnectionHelpers connectionHelpers = new ConnectionHelpers();
            connection = connectionHelpers.connectionClass();
            if (connection != null)
@@ -54,13 +55,17 @@ public class ConclusionFact extends AppCompatActivity {
                String query = "Select * From Facts";
                Statement statement = connection.createStatement();
                ResultSet resultSet = statement.executeQuery(query);
+
+               while (resultSet.next()) {
                    Mask tempMask = new Mask
                            (resultSet.getInt("Kod_fact"),
                                    resultSet.getString("Fact"),
                                    resultSet.getString("Images")
-                   );
+                           );
                    data.add(tempMask);
-                   pAdapter.notifyDataSetInvalidated();;
+                   pAdapter.notifyDataSetInvalidated();
+
+               }
                connection.close();
 
            }
@@ -72,7 +77,11 @@ public class ConclusionFact extends AppCompatActivity {
         catch (Exception ex) {
             Toast.makeText(ConclusionFact.this, "Что-то пошло не так с выводом факта", Toast.LENGTH_LONG).show();
         }
-
+        enterMobile();
+    }
+    public void enterMobile() {
+        pAdapter.notifyDataSetInvalidated();
+        //listView.setAdapter(pAdapter);
     }
 
 
