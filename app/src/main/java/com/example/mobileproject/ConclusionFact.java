@@ -18,6 +18,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Random;
 
 public class ConclusionFact extends AppCompatActivity {
     Connection connection;
@@ -29,22 +30,28 @@ public class ConclusionFact extends AppCompatActivity {
     List<Mask> data;
     AdapterMask pAdapter;
 
-    @SuppressLint("MissingInflatedId")
+    //@SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conclusion_fact);
 
 
+//        textFact = findViewById(R.id.textFact);
+//        Picture = findViewById(R.id.imageView);
+
+        //v = findViewById(com.google.android.material.R.id.ghost_view);
+
+        GetTableSQL();
+    }
+    int min = 0;
+     int max = 7;
+    Random random = new Random();
+     int  r= random.nextInt(7) ;
+
+    public void GetTableSQL() {
         textFact = findViewById(R.id.textFact);
         Picture = findViewById(R.id.imageView);
-
-        v = findViewById(com.google.android.material.R.id.ghost_view);
-
-        GetTableSQL(v);
-    }
-
-    public void GetTableSQL(View view) {
         data = new ArrayList<Mask>();
         pAdapter = new AdapterMask(ConclusionFact.this, data);
         try {
@@ -52,19 +59,13 @@ public class ConclusionFact extends AppCompatActivity {
            connection = connectionHelpers.connectionClass();
            if (connection != null)
            {
-               String query = "Select * From Facts";
+               String query = "Select * From Facts WHERE Kod_fact =" + r;
                Statement statement = connection.createStatement();
                ResultSet resultSet = statement.executeQuery(query);
 
                while (resultSet.next()) {
-                   Mask tempMask = new Mask
-                           (resultSet.getInt("Kod_fact"),
-                                   resultSet.getString("Fact"),
-                                   resultSet.getString("Images")
-                           );
-                   data.add(tempMask);
-                   pAdapter.notifyDataSetInvalidated();
-
+                   textFact.setText(resultSet.getString("Fact"));
+                   resultSet.getString("Images");
                }
                connection.close();
 
@@ -77,7 +78,7 @@ public class ConclusionFact extends AppCompatActivity {
         catch (Exception ex) {
             Toast.makeText(ConclusionFact.this, "Что-то пошло не так с выводом факта", Toast.LENGTH_LONG).show();
         }
-        enterMobile();
+        //enterMobile();
     }
     public void enterMobile() {
         pAdapter.notifyDataSetInvalidated();

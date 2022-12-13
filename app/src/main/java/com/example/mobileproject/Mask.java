@@ -28,7 +28,7 @@ public class Mask implements Parcelable {
         }
     };
 
-    public void setID (int ID)
+    public void setKod_fact (int Kod_fact)
     {
         this.Kod_fact = Kod_fact;
     }

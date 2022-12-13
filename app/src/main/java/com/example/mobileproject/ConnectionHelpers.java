@@ -12,9 +12,10 @@ import kotlin.Suppress;
 
 public class ConnectionHelpers {
 
-    String userName, userPassword, port, ip, dataBase;
+    String  userName, userPassword, port, ip, dataBase;
     @SuppressLint("NewApi")
-    public Connection connectionClass() {
+    public Connection connectionClass()
+    {
         ip = "ngknn.ru";
         dataBase = "41P_Lebedeva_Mobile";
         userPassword = "12357";
@@ -31,12 +32,12 @@ public class ConnectionHelpers {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             connectionURL = "jdbc:jtds:sqlserver://" + ip + ":" + port + ";" + "databasename=" + dataBase + ";user=" + userName + ";password=" + userPassword + ";";
             connection = DriverManager.getConnection(connectionURL);
-
-        } catch (Exception ex)
-        {
-            Log.e("Ошибка", ex.getMessage());
         }
-        return connection;
+        catch (Exception ex)
+        {
+            Log.e("Error", ex.getMessage());
+        }
+        return  connection;
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.mobileproject;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,8 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterMask extends BaseAdapter {
-    private Context mContex;
-    private ArrayList<Mask> mListMAsk;
+    private Context mContext;
+    private ArrayList<Mask> mListMask;
     private OnItemClickListener mListener;
     String img ="";
     List<Mask> maskList;
@@ -36,9 +37,9 @@ public class AdapterMask extends BaseAdapter {
         mListener = listener;
     }
 
-    public  AdapterMask(Context mContex, List<Mask> maskList)
+    public  AdapterMask(Context mContext, List<Mask> maskList)
     {
-        this.mContex = mContex;
+        this.mContext = mContext;
         this.maskList = maskList;
     }
     @Override
@@ -61,27 +62,31 @@ public class AdapterMask extends BaseAdapter {
         InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(cr, uri);
         if (input == null) {
             Resources res = context.getResources();
-            //return BitmapFactory.decodeResource(res, R.drawable.nophoto);
+            return BitmapFactory.decodeResource(res, R.drawable.nophoto);
         }
         return BitmapFactory.decodeStream(input);
     }
 
     public Bitmap getUserImage(String encodedImg) {
-
-        byte[] bytes = Base64.decode(encodedImg, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        if(encodedImg!=null && !encodedImg.equals("null")) {
+            byte[] bytes = Base64.decode(encodedImg, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        }
+        else
+            return BitmapFactory.decodeResource(mContext.getResources(), R.drawable.nophoto);
     }
 
     @Override
-    public View getView(int p, View convertView, ViewGroup parent) {
-        View v = View.inflate(mContex, R.layout.activity_conclusion_fact, null);
+    public View getView(int i, View convertView, ViewGroup parent) {
+        View v = View.inflate(mContext, R.layout.activity_conclusion_fact, null);
 
         TextView Fact = v.findViewById(R.id.textFact);
         ImageView Images = v.findViewById(R.id.imageView);
 
-        Mask mask = maskList.get(p);
+        Mask mask = maskList.get(i);
         Fact.setText(mask.getFact());
         Images.setImageBitmap(getUserImage(mask.getImages()));
+
         return v;
     }
 }
