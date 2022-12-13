@@ -27,33 +27,28 @@ public class ConclusionFact extends AppCompatActivity {
     View v;
     String img = null;
     TextView textFact;
+    TextView textLink;
     List<Mask> data;
     AdapterMask pAdapter;
 
-    //@SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conclusion_fact);
 
-
-//        textFact = findViewById(R.id.textFact);
-//        Picture = findViewById(R.id.imageView);
-
-        //v = findViewById(com.google.android.material.R.id.ghost_view);
-
         GetTableSQL();
     }
-    int min = 0;
+    int min = 1;
      int max = 7;
     Random random = new Random();
-     int  r= random.nextInt(7) ;
+     int  r= random.nextInt(2) ;
 
     public void GetTableSQL() {
         textFact = findViewById(R.id.textFact);
+        textLink = findViewById(R.id.textLink);
         Picture = findViewById(R.id.imageView);
-        data = new ArrayList<Mask>();
-        pAdapter = new AdapterMask(ConclusionFact.this, data);
+        //data = new ArrayList<Mask>();
+        //pAdapter = new AdapterMask(ConclusionFact.this, data);
         try {
            ConnectionHelpers connectionHelpers = new ConnectionHelpers();
            connection = connectionHelpers.connectionClass();
@@ -66,6 +61,7 @@ public class ConclusionFact extends AppCompatActivity {
                while (resultSet.next()) {
                    textFact.setText(resultSet.getString("Fact"));
                    resultSet.getString("Images");
+                   textLink.setText(resultSet.getString("Link"));
                }
                connection.close();
 
@@ -80,6 +76,7 @@ public class ConclusionFact extends AppCompatActivity {
         }
         //enterMobile();
     }
+
     public void enterMobile() {
         pAdapter.notifyDataSetInvalidated();
         //listView.setAdapter(pAdapter);

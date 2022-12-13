@@ -82,9 +82,11 @@ public class AdapterMask extends BaseAdapter {
 
         TextView Fact = v.findViewById(R.id.textFact);
         ImageView Images = v.findViewById(R.id.imageView);
+        TextView Link = v.findViewById(R.id.textLink);
 
         Mask mask = maskList.get(i);
         Fact.setText(mask.getFact());
+        Link.setText(mask.getLink());
         Images.setImageBitmap(getUserImage(mask.getImages()));
 
         return v;

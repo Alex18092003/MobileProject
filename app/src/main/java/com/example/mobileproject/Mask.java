@@ -7,6 +7,7 @@ import android.provider.ContactsContract;
 public class Mask implements Parcelable {
     private int Kod_fact;
     private  String Fact;
+    private  String Link;
     private  String Images;
 
     public   Mask(Parcel in)
@@ -14,6 +15,7 @@ public class Mask implements Parcelable {
         Kod_fact = in.readInt();
         Fact = in.readString();
         Images = in.readString();
+        Link = in.readString();
     }
 
     public static  final  Creator<Mask> CREATOR = new Creator<Mask>() {
@@ -41,12 +43,17 @@ public class Mask implements Parcelable {
     {
         Images = images;
     }
+    public  void  setLink (String link)
+    {
+        Link = link;
+    }
 
-public  Mask(int Kod_fact, String fact, String images)
+public  Mask(int Kod_fact, String fact, String images, String link)
 {
     this.Kod_fact = Kod_fact;
     Fact = fact;
     Images = images;
+    Link = link;
 }
 
     @Override
@@ -58,6 +65,7 @@ public  Mask(int Kod_fact, String fact, String images)
         parcel.writeInt(Kod_fact);
         parcel.writeString(Fact);
         parcel.writeString(Images);
+        parcel.writeString(Link);
     }
 
     public int getID()
@@ -69,5 +77,8 @@ public  Mask(int Kod_fact, String fact, String images)
     }
     public String getImages() {
         return Images;
+    }
+    public String getLink() {
+        return Link;
     }
 }
