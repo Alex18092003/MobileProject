@@ -38,48 +38,51 @@ public class ConclusionFact extends AppCompatActivity {
 
         GetTableSQL();
     }
+
     int min = 1;
-     int max = 7;
-    Random random = new Random();
-     int  r= random.nextInt(2) ;
+    int max = 4;
+    int i;
+    //Random random = new Random();
 
     public void GetTableSQL() {
-        textFact = findViewById(R.id.textFact);
-        textLink = findViewById(R.id.textLink);
-        Picture = findViewById(R.id.imageView);
-        //data = new ArrayList<Mask>();
-        //pAdapter = new AdapterMask(ConclusionFact.this, data);
-        try {
-           ConnectionHelpers connectionHelpers = new ConnectionHelpers();
-           connection = connectionHelpers.connectionClass();
-           if (connection != null)
-           {
-               String query = "Select * From Facts WHERE Kod_fact =" + r;
-               Statement statement = connection.createStatement();
-               ResultSet resultSet = statement.executeQuery(query);
+                final int r = new Random().nextInt((max - min) + 1) + min;
 
-               while (resultSet.next()) {
-                   textFact.setText(resultSet.getString("Fact"));
-                   resultSet.getString("Images");
-                   textLink.setText(resultSet.getString("Link"));
-               }
-               connection.close();
 
-           }
-           else
-           {
-               ConnectionResult="Нет подключения";
-           }
-        }
-        catch (Exception ex) {
-            Toast.makeText(ConclusionFact.this, "Что-то пошло не так с выводом факта", Toast.LENGTH_LONG).show();
-        }
-        //enterMobile();
+                textFact = findViewById(R.id.textFact);
+                textLink = findViewById(R.id.textLink);
+                Picture = findViewById(R.id.imageView);
+                try {
+                    ConnectionHelpers connectionHelpers = new ConnectionHelpers();
+                    connection = connectionHelpers.connectionClass();
+                    if (connection != null) {
+                        String query = "Select * From Facts WHERE Kod_fact =" + r;
+                        Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery(query);
+
+                        while (resultSet.next()) {
+                            textFact.setText(resultSet.getString("Fact"));
+                            resultSet.getString("Images");
+                            textLink.setText(resultSet.getString("Link"));
+                        }
+                        connection.close();
+
+                    } else {
+                        ConnectionResult = "Нет подключения";
+                    }
+                } catch (Exception ex) {
+                    Toast.makeText(ConclusionFact.this, "Что-то пошло не так с выводом факта", Toast.LENGTH_LONG).show();
+                }
     }
 
-    public void enterMobile() {
-        pAdapter.notifyDataSetInvalidated();
-        //listView.setAdapter(pAdapter);
+
+    public void btnYet(View view) {
+        try {
+            GetTableSQL();
+        } catch (Exception ex) {
+            Toast.makeText(ConclusionFact.this, "Что-то пошло не так", Toast.LENGTH_LONG).show();
+        }
+
+
     }
 
 
