@@ -30,48 +30,86 @@ public class ConclusionFact extends AppCompatActivity {
     TextView textLink;
     List<Mask> data;
     AdapterMask pAdapter;
+    int min = 1;
+    int max = 4;
+
+    ArrayList<Integer> numbers = new ArrayList<Integer>();
+    Random rand = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conclusion_fact);
 
+        Mas();
+
         GetTableSQL();
     }
 
-    int min = 1;
-    int max = 4;
-    int i;
-    //Random random = new Random();
+    public  void Mas()
+    {
+        while (numbers.size() < 4) {
+            final int r = rand.nextInt((max - min) + 1) + min;
+            if (!numbers.contains(r)) {
+                numbers.add(r);
+            }
+        }
+    }
+
+//    public int gen(int i) {
+//        int alldata = i;
+//        Random rand = new Random();
+//        int rand_int = rand.nextInt(i);
+//        if (numbers.size() == 0) {
+//            numbers.add(rand_int);
+//        }else{
+//            if (numbers.contains(rand_int)) {
+//                return gen(i);
+//            } else {
+//                numbers.add(rand_int);
+//            }
+//        }
+//        return rand_int;
+//    }
+    //int r = gen(max);
+    public  int i = 0;
 
     public void GetTableSQL() {
-                final int r = new Random().nextInt((max - min) + 1) + min;
+        try {
+        if (i != max) {
+            int index1 = numbers.get(i);
+            textFact = findViewById(R.id.textFact);
+            textLink = findViewById(R.id.textLink);
+            Picture = findViewById(R.id.imageView);
+
+                ConnectionHelpers connectionHelpers = new ConnectionHelpers();
+                connection = connectionHelpers.connectionClass();
 
 
-                textFact = findViewById(R.id.textFact);
-                textLink = findViewById(R.id.textLink);
-                Picture = findViewById(R.id.imageView);
-                try {
-                    ConnectionHelpers connectionHelpers = new ConnectionHelpers();
-                    connection = connectionHelpers.connectionClass();
-                    if (connection != null) {
-                        String query = "Select * From Facts WHERE Kod_fact =" + r;
-                        Statement statement = connection.createStatement();
-                        ResultSet resultSet = statement.executeQuery(query);
+                if (connection != null) {
+                    String query = "Select * From Facts WHERE Kod_fact =" + index1;
+                    Statement statement = connection.createStatement();
+                    ResultSet resultSet = statement.executeQuery(query);
 
-                        while (resultSet.next()) {
-                            textFact.setText(resultSet.getString("Fact"));
-                            resultSet.getString("Images");
-                            textLink.setText(resultSet.getString("Link"));
-                        }
-                        connection.close();
-
-                    } else {
-                        ConnectionResult = "Нет подключения";
+                    while (resultSet.next()) {
+                        textFact.setText(resultSet.getString("Fact"));
+                        resultSet.getString("Images");
+                        textLink.setText(resultSet.getString("Link"));
                     }
-                } catch (Exception ex) {
-                    Toast.makeText(ConclusionFact.this, "Что-то пошло не так с выводом факта", Toast.LENGTH_LONG).show();
+                    connection.close();
+                } else {
+                    ConnectionResult = "Нет подключения";
                 }
+                i++;
+
+        }
+        else
+        {
+            Toast.makeText(ConclusionFact.this, "Факты закончились", Toast.LENGTH_LONG).show();
+        }
+        } catch (Exception ex) {
+            Toast.makeText(ConclusionFact.this, "Что-то пошло не так с выводом факта", Toast.LENGTH_LONG).show();
+        }
     }
 
 
