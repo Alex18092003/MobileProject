@@ -9,6 +9,7 @@ public class Mask implements Parcelable {
     private  String Fact;
     private  String Link;
     private  String Images;
+    private int Kod_topic;
 
     public   Mask(Parcel in)
     {
@@ -16,6 +17,7 @@ public class Mask implements Parcelable {
         Fact = in.readString();
         Images = in.readString();
         Link = in.readString();
+        Kod_topic = in.readInt();
     }
 
     public static  final  Creator<Mask> CREATOR = new Creator<Mask>() {
@@ -47,13 +49,18 @@ public class Mask implements Parcelable {
     {
         Link = link;
     }
+    public  void  setKod_topic (int kod_topic)
+    {
+        Kod_topic = kod_topic;
+    }
 
-public  Mask(int Kod_fact, String fact, String images, String link)
+public Mask(int Kod_fact, String fact, String images, String link, int kod_topic)
 {
     this.Kod_fact = Kod_fact;
     Fact = fact;
     Images = images;
     Link = link;
+    Kod_topic = kod_topic;
 }
 
     @Override
@@ -66,6 +73,7 @@ public  Mask(int Kod_fact, String fact, String images, String link)
         parcel.writeString(Fact);
         parcel.writeString(Images);
         parcel.writeString(Link);
+        parcel.writeInt(Kod_topic);
     }
 
     public int getID()
@@ -80,5 +88,8 @@ public  Mask(int Kod_fact, String fact, String images, String link)
     }
     public String getLink() {
         return Link;
+    }
+    public int getKod_topic() {
+        return Kod_topic;
     }
 }
