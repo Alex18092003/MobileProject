@@ -38,7 +38,7 @@ public class ConclusionFact extends AppCompatActivity {
     List<Mask> data;
     AdapterMask pAdapter;
     int min = 1;
-    int max = 4;
+    int max = 100;
 
     ArrayList<Integer> numbers = new ArrayList<Integer>();
     Random rand = new Random();
@@ -53,7 +53,7 @@ public class ConclusionFact extends AppCompatActivity {
 
     public  void Mas()
     {
-        while (numbers.size() < 4) {
+        while (numbers.size() < 100) {
             final int r = rand.nextInt((max - min) + 1) + min;
             if (!numbers.contains(r)) {
                 numbers.add(r);
@@ -90,7 +90,7 @@ public class ConclusionFact extends AppCompatActivity {
             }
             else
             {
-                Toast.makeText(ConclusionFact.this, "Факты закончились", Toast.LENGTH_LONG).show();
+                Toast.makeText(ConclusionFact.this, "Упс! Факты закончились", Toast.LENGTH_LONG).show();
             }
         }
         catch (Exception ex) {
@@ -108,4 +108,9 @@ public class ConclusionFact extends AppCompatActivity {
 
 
     }
+    public void btnBack(View v)
+    {
+        startActivity(new Intent(this, MainMenu.class));
+    }
+
 }
