@@ -7,6 +7,23 @@
     tools:context=".MainMenu"
     android:background="@color/buttonnotact">
 
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:autoLink="web"
+        android:gravity="center"
+
+        android:text="Жми кнопку"
+        android:textColor="@color/word"
+        android:textColorLink="@color/button"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonStart"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="50dp"></TextView>
     <Button
         android:id="@+id/buttonStart"
         android:layout_width="wrap_content"
@@ -22,19 +39,6 @@
         android:textColor="@color/word"
         android:background="@drawable/round_button"
         />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Admin"
-        android:onClick="AdminMenu"
-        android:textColor="@color/word"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonStart" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

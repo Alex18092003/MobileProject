@@ -48,9 +48,6 @@ public class MainMenu extends AppCompatActivity {
             Toast.makeText(MainMenu.this, "Что-то пошло не так", Toast.LENGTH_LONG).show();
         }
     }
-    public void AdminMenu(View v)
-    {
-        startActivity(new Intent(this, AdminMenu.class));
-    }
+
 
 }
