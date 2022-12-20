@@ -9,19 +9,27 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainMenu extends AppCompatActivity {
     //задержка для анимаци кнопки
     private final int SPLASH_DISPLAY_LENGHT = 2000;
-
+    TextView text;
+    int unicode = 0x1F609;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        text = findViewById(R.id.text);
+        String emoji = getEmojiByUnicode(unicode);
+        String textt = "Жми кнопку ";
+        text.setText(textt + emoji);
     }
-
+    public String getEmojiByUnicode(int unicode){
+        return new String(Character.toChars(unicode));
+    }
     // анимированная кнопка + старт 
     public void btnStart(View view) {
         try {
